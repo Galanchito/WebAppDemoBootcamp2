@@ -32,7 +32,15 @@ jobs:
 
       - name: Publish
         run: dotnet publish --configuration Release --no-build --output ./publish
-   
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
